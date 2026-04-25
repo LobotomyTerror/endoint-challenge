@@ -17,7 +17,11 @@ def predictions_values() -> List[Dict[str, str]]:
 def find_truths(data: List[Dict[str, str]], case_id: str, study_id: str) -> Dict[str, str]:
     for _, values in enumerate(data):
         if values.get("study_id") == study_id and values.get("case_id") == case_id:
-            return values
+            return {
+                "case_id": case_id,
+                "study_id": study_id,
+                "predicted_is_relevant": values.get("is_relevant_to_current")
+            }
 
 
 def match_prior_studies(case_id: str, prior_studies: List[models.PriorStudies]) -> List:

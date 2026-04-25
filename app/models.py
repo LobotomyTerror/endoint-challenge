@@ -32,7 +32,7 @@ class CurrentStudy(BaseModel):
 class PredicitionResponse(BaseModel):
     case_id: str
     study_id: str
-    is_relevant_to_current: bool
+    predicted_is_relevant: bool
 
 
 class Response(BaseModel):
