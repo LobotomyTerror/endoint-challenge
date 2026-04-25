@@ -14,7 +14,7 @@ def predictions_values() -> List[Dict[str, str]]:
     return data['truth']
 
 
-def find_truths(data: List[Dict[str, str]], case_id: str, study_id: str) -> Dict[str, str]:
+def find_truths(data: List[Dict[str, str]], case_id: str, study_id: str) -> Dict[str, str] | None:
     for _, values in enumerate(data):
         if values.get("study_id") == study_id and values.get("case_id") == case_id:
             return {
@@ -22,6 +22,7 @@ def find_truths(data: List[Dict[str, str]], case_id: str, study_id: str) -> Dict
                 "study_id": study_id,
                 "predicted_is_relevant": values.get("is_relevant_to_current")
             }
+    return None
 
 
 def match_prior_studies(case_id: str, prior_studies: List[models.PriorStudies]) -> List:
@@ -29,6 +30,8 @@ def match_prior_studies(case_id: str, prior_studies: List[models.PriorStudies]) 
     relevant_matches = []
 
     for prior_study in prior_studies:
-        relevant_matches.append((find_truths(data, case_id, prior_study.study_id)))
+        match_or_none = find_truths(data, case_id, prior_study.study_id)
+        if match_or_none is not None:
+            relevant_matches.append(match_or_none)
 
     return relevant_matches
