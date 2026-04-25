@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 
 from typing import Dict
-import json
 
 from app import resources, models
 
