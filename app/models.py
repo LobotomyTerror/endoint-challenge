@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Dict
 
 
 class Cases(BaseModel):
@@ -36,4 +36,4 @@ class Response(BaseModel):
 class PredicitionResponse(BaseModel):
     case_id: str
     study_id: str
-    predicted_is_relevant: bool
+    is_relevant_to_current: bool
